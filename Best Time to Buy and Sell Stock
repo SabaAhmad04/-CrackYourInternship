@@ -1,0 +1,17 @@
+    int maxProfit(vector<int>& prices) {
+        int maxprofit=INT_MIN;
+        int minprice=INT_MAX;
+        for(int i=0;i<prices.size();i++)
+        {
+            if(prices[i]<minprice)
+            {
+                minprice=prices[i];
+            }
+            int todayprofit=prices[i]-minprice;
+            if(todayprofit>maxprofit)
+            {
+                maxprofit=todayprofit;
+            }
+        }
+        return maxprofit;
+    }
