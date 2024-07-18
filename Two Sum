@@ -1,0 +1,19 @@
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int,int>mp;
+        for(int i=0;i<nums.size();i++)
+        {
+            mp[nums[i]]=i;
+        }
+        for(int i=0;i<nums.size();i++)
+        {
+            int sub=target-nums[i];
+            if(mp.find(sub) != mp.end())
+            {
+                if(i != mp[sub])
+                {
+                    return {i,mp[sub]};
+                }
+            }
+        }
+        return {-1,-1};
+    }
