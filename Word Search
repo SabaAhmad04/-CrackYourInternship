@@ -1,0 +1,41 @@
+    bool check(vector<vector<char>>& board,  map<pair<int,int>,bool>&vis, string &word, int row, int col, int &n, int &m, int k)
+    {
+          if(k==word.size())
+          {
+            return true;
+          }
+          if(row<0 || row>=n || col<0 || col>=m || vis[{row,col}] || board[row][col] != word[k])
+          {
+            return false;
+          }
+          vis[{row,col}]=1;
+          int dX[]={-1,1,0,0};
+          int dY[]={0,0,-1,1};
+          for(int i=0;i<4;i++)
+          {
+             int newRow=row+dX[i];
+             int newCol=col+dY[i];
+             if(check(board,vis,word,newRow,newCol,n,m,k+1))
+             {
+                      return true;
+             }
+          }
+          vis[{row,col}]=0;
+          return false;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        map<pair<int,int>,bool>vis;
+        int n=board.size();
+        int m=board[0].size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(board[i][j]==word[0] && check(board,vis,word,i,j,n,m,0))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
