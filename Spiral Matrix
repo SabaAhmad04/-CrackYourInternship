@@ -1,0 +1,39 @@
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int startRow=0;
+        int startCol=0;
+        int endRow=n-1;
+        int endCol=m-1;
+        vector<int>ans;
+        int totalElement=n*m;
+        int numElement=0;
+        for(int i=0;i<totalElement;i++)
+        {
+            for(int i=startCol;i<=endCol && numElement<totalElement;i++)
+            {
+                ans.push_back(matrix[startRow][i]);
+                numElement++;
+            }
+            startRow++;
+            for(int i=startRow;i<=endRow && numElement<totalElement;i++)
+            {
+                ans.push_back(matrix[i][endCol]);
+                numElement++;
+            }
+            endCol--;
+            for(int i=endCol;i>=startCol && numElement<totalElement;i--)
+            {
+                ans.push_back(matrix[endRow][i]);
+                numElement++;
+            }
+            endRow--;
+            for(int i=endRow;i>=startRow && numElement<totalElement;i--)
+            {
+                ans.push_back(matrix[i][startCol]);
+                numElement++;
+            }
+            startCol++;
+        }
+        return ans;
+    }
