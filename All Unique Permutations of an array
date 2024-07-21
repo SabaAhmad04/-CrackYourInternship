@@ -1,0 +1,25 @@
+    void FindPermutations(vector<int>&arr, set<vector<int>>&s, int index)
+    {
+        if(index>=arr.size())
+        {
+            s.insert(arr);
+            return;
+        }
+        for(int i=index;i<arr.size();i++)
+        {
+            swap(arr[i],arr[index]);
+            FindPermutations(arr,s,index+1);
+            swap(arr[i],arr[index]);
+        }
+    }
+    vector<vector<int>> uniquePerms(vector<int> &arr ,int n) {
+        // code here
+        set<vector<int>>s;
+        vector<vector<int>>ans;
+        FindPermutations(arr,s,0);
+        for(auto &it:s)
+        {
+            ans.push_back(it);
+        }
+        return ans;
+    }
