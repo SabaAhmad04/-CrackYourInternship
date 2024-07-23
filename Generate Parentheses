@@ -1,0 +1,15 @@
+    void FindParenthesis(int open, int close, string temp, vector<string>&ans)
+    {
+        if(open==0 && close==0)
+        {
+            ans.push_back(temp);
+            return;
+        }
+        if(open>0) FindParenthesis(open-1,close,temp+'(',ans);
+        if(close>open) FindParenthesis(open,close-1,temp+')',ans);
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string>ans;
+        FindParenthesis(n,n,"",ans);
+        return ans;
+    }
