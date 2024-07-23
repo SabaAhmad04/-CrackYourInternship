@@ -1,0 +1,53 @@
+    bool isSafe(vector<vector<char>>&mat,int i, int j, int n ,int m)
+    {
+         return (i>=0 && i<n && j>=0 && j<m && mat[i][j]=='O');
+    }
+    bool Boundary(int i, int j, int n ,int m)
+    {
+         return (i==0 || j==0 || i==n-1 || j==m-1);
+    }
+    void SetMat(vector<vector<char>>&mat, int row, int col, int n, int m)
+    {
+          mat[row][col]='N';
+          int dX[]={-1,1,0,0};
+          int dY[]={0,0,-1,1};
+          for(int i=0;i<4;i++)
+          {
+              int newrow=row+dX[i];
+              int newcol=col+dY[i];
+              if(isSafe(mat,newrow,newcol,n,m))
+              {
+                   SetMat(mat,newrow,newcol,n,m);
+              }
+          }
+    }
+    vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
+    {
+        // code here
+        for(int i=0;i<mat.size();i++)
+        {
+            for(int j=0;j<mat[i].size();j++)
+            {
+                 if(Boundary(i,j,n,m) && mat[i][j]=='O')
+                 {
+                     SetMat(mat,i,j,n,m);
+                 }
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                  if(mat[i][j]=='O')
+                  {
+                      mat[i][j]='X';
+                  }
+                 else if(mat[i][j]=='N')
+                 {
+                     mat[i][j]='O';
+                 }
+                 
+            }
+        }
+        return mat;
+    }
