@@ -1,0 +1,32 @@
+    string longestCommonPrefix(vector<string>& strs) {
+        int i=0;
+        string ans;
+        while(true)
+        {
+            char pre=0;
+            for(auto str:strs)
+            {
+                   if(i>=str.size())
+                   {
+                      pre=0;
+                      break;
+                   }
+                   if(pre==0)
+                   {
+                     pre=str[i];
+                   }
+                   else if(str[i] != pre)
+                   {
+                      pre=0;
+                      break;
+                   }
+            }
+            if(pre==0)
+            {
+                break;
+            }
+            ans.push_back(pre);
+            i++;
+        }
+        return ans;
+    }
