@@ -1,0 +1,20 @@
+    long long int FindProduct(vector<long long int>&nums, long long int index)
+    {
+        long long int prod=1;
+        for(long long int i=0;i<nums.size();i++)
+        {
+            if(i==index) continue;
+            prod*=nums[i];
+        }
+        return prod;
+    }
+    vector<long long int> productExceptSelf(vector<long long int>& nums, int n) {
+       
+        //code here    
+        vector<long long int>p(nums.size(),0);
+        for(long long int i=0;i<nums.size();i++)
+        {
+             p[i]=FindProduct(nums,i);
+        }
+        return p;
+    }
