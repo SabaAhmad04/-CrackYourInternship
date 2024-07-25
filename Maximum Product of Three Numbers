@@ -1,0 +1,16 @@
+    int maximumProduct(vector<int>& nums) {
+       if(nums.size()<3)
+       {
+        return 0;
+       } 
+       sort(nums.begin(),nums.end());
+       int prod1=nums[0]*nums[1]*nums[nums.size()-1];
+       int prod2=1;
+       int i=nums.size()-1;
+       int k=3;
+       while(k--)
+       {
+        prod2*=nums[i--];
+       }
+       return max(prod1,prod2);
+    }
