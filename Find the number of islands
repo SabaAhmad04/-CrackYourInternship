@@ -1,0 +1,40 @@
+        bool isSafe(vector<vector<char>>&grid, int row, int col)
+    {
+        if(row>=0 && row<grid.size() && col>=0 && col<grid[0].size() && grid[row][col]=='1')
+        {
+            return true;
+        }
+        return false;
+    }
+    void dfs(vector<vector<char>>&grid, int row, int col, map<pair<int,int>,bool>&vis)
+    {
+         vis[{row,col}]=true;
+         int dX[]={-1,1,0,0,-1,-1,1,1};
+         int dY[]={0,0,-1,1,-1,1,-1,1};
+         for(int i=0;i<8;i++)
+         {
+             int newRow=row+dX[i];
+             int newCol=col+dY[i];
+             if(!vis[{newRow,newCol}] && isSafe(grid,newRow,newCol))
+             {
+                dfs(grid,newRow,newCol,vis);
+             }
+         }
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        // Code here
+               int count=0;
+        map<pair<int,int>,bool>vis;
+        for(int i=0;i<grid.size();i++)
+        {
+            for(int j=0;j<grid[0].size();j++)
+            {
+                if(grid[i][j] != '0' && !vis[{i,j}])
+                {
+                    dfs(grid,i,j,vis);
+                     count++;
+                }
+            }
+        }
+        return count;
+    }
