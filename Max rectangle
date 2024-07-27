@@ -1,0 +1,74 @@
+    vector<int> findPrev(int heights[], int n)
+    {
+        stack<int>st;
+        st.push(-1);
+        vector<int>pre(n);
+        for(int i=0;i<n;i++)
+        {
+            while(st.top() != -1 && heights[st.top()]>=heights[i])
+            {
+                st.pop();
+            }
+            pre[i]=st.top();
+            st.push(i);
+        }
+        return pre;
+    }
+    vector<int> findNext(int heights[], int n)
+    {
+        stack<int>st;
+        st.push(-1);
+        vector<int>next(n);
+        for(int i=n-1;i>=0;i--)
+        {
+            while(st.top()!=-1 && heights[st.top()]>=heights[i])
+            {
+                st.pop();
+            }
+            next[i]=st.top();
+            st.push(i);
+        }
+        return next;
+    }
+    int findRectangle(int heights[], int n)
+    {
+         vector<int>pre=findPrev(heights,n);
+         vector<int>next=findNext(heights,n);
+         for(int i=0;i<next.size();i++)
+         {
+             if(next[i]==-1)
+             {
+                 next[i]=next.size();
+             }
+         }
+         int maxArea=INT_MIN;
+         for(int i=0;i<n;i++)
+         {
+             int h=heights[i];
+             int w=next[i]-pre[i]-1;
+             int area=h*w;
+             maxArea=max(area,maxArea);
+         }
+         return maxArea;
+    }
+    int maxArea(int M[MAX][MAX], int n, int m) {
+        // Your code here
+        int maxArea=findRectangle(M[0],m);
+        for(int i=1;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(M[i][j]==1)
+                {
+                    M[i][j]=M[i][j]+M[i-1][j];
+                }
+                else
+                {
+                    M[i][j]=0;
+                }
+            }
+            int area=findRectangle(M[i],m);
+            maxArea=max(area,maxArea);
+        }
+        return maxArea;
+    }
