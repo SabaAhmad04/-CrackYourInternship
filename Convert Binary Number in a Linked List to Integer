@@ -1,0 +1,20 @@
+    int makeInteger(vector<int>&binary)
+    {
+        int power=0;
+        int num=0;
+        for(int i=binary.size()-1;i>=0;i--)
+        {
+              num=binary[i]*pow(2,power++)+num;
+        }
+        return num;
+    }
+    int getDecimalValue(ListNode* head) {
+        vector<int>binary;
+        ListNode *temp=head;
+        while(temp)
+        {
+            binary.push_back(temp->val);
+            temp=temp->next;
+        }
+        return makeInteger(binary);
+    }
