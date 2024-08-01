@@ -1,0 +1,17 @@
+    long long multiplyTwoLists(Node *first, Node *second) {
+        // code here
+        long long mod=1000000007;
+        long long s1=0;
+        while(first)
+        {
+            s1=(s1*10)%mod+first->data;
+            first=first->next;
+        }
+        long long s2=0;
+        while(second)
+        {
+            s2=(s2*10)%mod+second->data;
+            second=second->next;
+        }
+        return (s1*s2)%mod;
+    }
