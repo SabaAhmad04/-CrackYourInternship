@@ -1,0 +1,30 @@
+    ListNode* partition(ListNode* head, int x) {
+        if(!head || !head->next)
+        {
+            return head;
+        }
+        ListNode *smaller=new ListNode(-1);
+        ListNode *it1=smaller;
+        ListNode *greater=new ListNode(-1);
+        ListNode *it2=greater;
+        ListNode *temp=head;
+        while(temp)
+        {
+            if(temp->val<x)
+            {
+                it1->next=new ListNode(temp->val);
+                it1=it1->next;
+            }
+            else
+            {
+                it2->next=new ListNode(temp->val);
+                it2=it2->next;
+            }
+            temp=temp->next;
+        }
+        it1->next=greater->next;
+        it2->next=NULL;
+        greater->next=NULL;
+        delete greater;
+        return smaller->next;
+    }
