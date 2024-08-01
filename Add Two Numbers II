@@ -1,0 +1,73 @@
+    ListNode *add(ListNode *temp1, ListNode *temp2)
+    {
+        ListNode *ans=new ListNode(-1);
+        ListNode *temp=ans;
+        int carry=0;
+        while(temp1 && temp2)
+        {
+               int sum=temp1->val+temp2->val+carry;
+               temp->next=new ListNode(sum%10);
+               temp=temp->next;
+               carry=sum/10; 
+               temp1=temp1->next;
+               temp2=temp2->next;
+        }
+        while(temp1)
+        {
+            int sum=temp1->val+0+carry;
+            temp->next=new ListNode(sum%10);
+            temp=temp->next;
+            carry=sum/10;
+            temp1=temp1->next;
+        }
+         while(temp2)
+        {
+            int sum=temp2->val+0+carry;
+            temp->next=new ListNode(sum%10);
+            temp=temp->next;
+            carry=sum/10;
+            temp2=temp2->next;
+        }
+        if(carry)
+        {
+            temp->next=new ListNode(carry);
+            temp=temp->next;
+        }
+        temp->next=NULL;
+        ListNode *prev=NULL;
+        ListNode *curr=ans->next;
+        ans->next=NULL;
+        while(curr)
+        {
+            ListNode *newnode=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=newnode;
+        }
+        return prev;
+    }
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *prev=NULL;
+        ListNode *curr=l1;
+        while(curr)
+        {
+            ListNode *nextnode=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nextnode;
+        }
+        ListNode *temp1=prev;
+        prev=NULL;
+      
+        curr=l2;
+        while(curr)
+        {
+            ListNode *nextnode=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nextnode;
+        }
+        ListNode *temp2=prev;
+        return add(temp1,temp2);
+        // return NULL;
+    }
