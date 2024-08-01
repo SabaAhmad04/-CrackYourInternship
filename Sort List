@@ -1,0 +1,65 @@
+    ListNode *mergeList(ListNode *left, ListNode *right)
+    {
+        if(!right)
+        {
+            return left;
+        }
+        if(!left)
+        {
+            return right;
+        }
+        ListNode *ans=new ListNode(-1);
+        ListNode *temp=ans;
+        while(left && right)
+        {
+            if(left->val<=right->val)
+            {
+                temp->next=left;
+                temp=left;
+                left=left->next;
+            }
+            else
+            {
+                temp->next=right;
+                temp=right;
+                right=right->next;
+            }
+        }
+        if(left)
+        {
+            temp->next=left;
+        }
+        if(right)
+        {
+            temp->next=right;
+        }
+        return ans->next;
+    }
+    ListNode *findMid(ListNode *head)
+    {
+        ListNode *slow=head;
+        ListNode *fast=head;
+        while(fast->next)
+        {
+            fast=fast->next;
+            if(fast->next)
+            {
+                fast=fast->next;
+                slow=slow->next;
+            }
+        }
+        return slow;
+    }
+    ListNode* sortList(ListNode* head) {
+        if(!head || !head->next)
+        {
+            return head;
+        }
+        ListNode *midlist=findMid(head);
+        ListNode *left=head;
+        ListNode *right=midlist->next;
+        midlist->next=NULL;
+        left=sortList(left);
+        right=sortList(right);
+        return mergeList(left,right);
+    }
