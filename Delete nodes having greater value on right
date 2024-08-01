@@ -1,0 +1,32 @@
+    Node *compute(Node *head)
+    {
+          unordered_map<Node*,int>mp;
+          Node *temp=head;
+          while(temp)
+          {
+               Node *it=temp->next;
+               while(it)
+               {
+                   if(it->data>temp->data)
+                   {
+                       mp[temp]=it->data;
+                       break;
+                   }
+                   it=it->next;
+               }
+               temp=temp->next;
+          }
+         temp=head;
+         Node *ans=new Node(-1);
+         Node *newlist=ans;
+         while(temp)
+         {
+             if(mp.find(temp) == mp.end())
+             {
+                 newlist->next=new Node(temp->data);
+                 newlist=newlist->next;
+             }
+             temp=temp->next;
+         }
+          return ans->next;
+    }
