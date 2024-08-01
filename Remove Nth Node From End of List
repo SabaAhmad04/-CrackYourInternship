@@ -1,0 +1,46 @@
+   int findLength(ListNode *head)
+    {
+        int length=0;
+        ListNode *temp=head;
+        while(temp)
+        {
+            temp=temp->next;
+            length++;
+        }
+        return length;
+    }
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+      ListNode *prev=NULL;
+      ListNode *curr=head;
+      int len=findLength(head);  
+      int dist=len-n;
+      if(dist==0)
+      {
+           ListNode *curr=head;
+           ListNode *nxt=curr->next?curr->next:NULL;
+           curr->next=NULL;
+           delete curr;
+           return nxt;
+      }
+      int i=1;
+      while(i<=dist)
+      {
+        prev=curr;
+        curr=curr->next;
+        i++;
+      }
+      if(prev)
+      {
+      if(curr->next)
+      {
+        prev->next=curr->next;
+      }
+      else
+      {
+        prev->next=NULL;
+      }
+      }
+      curr->next=NULL;
+      delete curr;
+      return head;
+    }
